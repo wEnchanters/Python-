@@ -85,17 +85,39 @@ def funcA(func):
         print(x)
     return funcB
 
+print("斐波那契数列")
+def fibonacci_sequence(n):
+    cache = {}
+    def fib(value):
+        if value in cache:
+            return cache[value]
+        elif value <= 1:
+            return value
+        cache[n] = fib(value - 1) + fib(value - 2)
+        return cache[n]
+
+    return [fib(i) for i in range(n + 1)]
+
+
+print(fibonacci_sequence(10))
+
+fib = lambda n: n if n <= 1 else fib(n - 1) + fib(n - 2)
+print(fib(10))
+
 # 装饰器
 @funcA
 def func():
     pass
 func()
 func()
+import functools
 
+print("装饰器和注解")
 # 带参数的装饰器
 def funE(msg):
     def funcF(func):
         x = 880
+        @functools.wraps(func)
         def funcG():
             # nonlocal
             nonlocal x
@@ -107,12 +129,70 @@ def funE(msg):
 @funE(msg="nb")
 def funZ():
     pass
-funZ()
-funZ()
+funZ = funZ()
 
+ 
 
 # lambda
 f = (lambda x : x * x)
 print(f(2))
 print(list(map(lambda x : ord(x) + 10, "FishC")))
 print(list(filter(lambda x : x % 2 == 0, range(10))))
+
+
+# 生成器
+print("生成器")
+# 每次执行到yield时，返回一条数据，保存状态，等到下次调用在执行
+def counter():
+    i = 0
+    while i <= 5:
+        yield i
+        i += 1
+for i in counter():
+    print(i)
+
+c = counter()
+print(next(c))
+
+def fib():
+    first, second = 0 , 1
+    while True:
+        yield first
+        first, second = second, first + second
+
+print("递归")
+def factInt(num):
+    if num <= 1:
+        return num
+    return num * factInt(num - 1)
+
+print(factInt(3))
+
+print("汉诺塔")
+def hanno(n, f, a, t):
+    if (n == 1):
+        print(f"从{f} 移动到 {t}")
+        return
+    hanno(n - 1, f , t, a)
+    print(f"从{f} 移动到 {t}")
+    hanno(n - 1, a , f, t)
+
+
+hanno(2,  "F", "A", "T")
+
+# /注释
+def exchange(dollar:str, rate:int = 6.32) -> int:
+    '''
+    功能：
+    参数：
+    :param dollar:
+    :param rate:
+    :return:
+    '''
+    return dollar * rate
+help(exchange)
+# 类型注释
+
+import functools
+print(functools.reduce(lambda x,y:x * y, [1, 2, 3, 4]))
+

@@ -77,3 +77,7 @@ print(list(filter(str.islower, s)))
 x = [1, 2, 3, 4, 5]
 y = iter(x, 0)
 print(y)
+
+# 多位数组排序
+t = [[1, 2, 3], [4, 5, 6]]
+print(sorted(t, key= lambda x : x[1]))
