@@ -194,17 +194,55 @@ class D:
         print(f"get~\nself -> {self}\ninstance -> {instance}\n")
 
 # 描述符只能用于类属性
+# 可以用来触发自动执行的代码，她像一个对象属性操作的代理类
+# 数值描述符
+# 对象属性
+# 非数值描述符
+# 类属性
 print("描述符只能用于类属性")
 class Description:
+    # self：描述符对象自身
+    # instance：被代理类的实例对象
+    # owner：将描述符对象附加到哪个类上
     def __get__(self, instance, owner):
-        print("get~")
+        print(f"self -> {self}\ninstance -> {instance}\nowner -> {owner}")
 class C:
     x = Description()
 c = C()
 c.x
 
-# 数值描述符
-# 对象属性
-# 非数值描述符
-# 类属性
+C.x
+
+print("类装饰器")
+def report(cls):
+    def oncall(*args, **kwargs):
+        print(f"{args}\n{kwargs}")
+        return cls(*args, **kwargs)
+    return oncall
+
+@report
+class C:
+    def __init__(self):
+        pass
+c = C()
+
+class Check:
+    def __init__(self, cls):
+        self.cls = cls
+    def __call__(self, *args, **kwargs):
+        self.obj = self.cls(*args, ** kwargs)
+        return self
+    def __getattr__(self, item):
+        print(f"正在访问的名称{item}")
+        return getattr(self.obj, item)
+@Check
+class C:
+    def __init__(self, name):
+        self.name = name
+    def say_hi(self):
+        print(f"调用了{self.name}")
+c1 = C("c1")
+c2 = C("c2")
+c1.say_hi()
+c2.say_hi()
 
