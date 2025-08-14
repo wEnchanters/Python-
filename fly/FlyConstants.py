@@ -16,7 +16,8 @@ WHITE = (255, 255, 255)
 
 # Other Variables for use in the program
 SCREEN_WIDTH = 400
-SCREEN_HEIGHT = 600
+SCREEN_HEIGHT = 700
+BACK_GROUND_SIZE = (SCREEN_WIDTH, SCREEN_HEIGHT)
 SPEED = 5
 SCORE = 0
 INITIAL_X = 160
@@ -34,5 +35,8 @@ INITIAL_Y = 520
 background = pygame.image.load("images/background.png")
 PLAYER_IMAGE_FILE = pygame.image.load("images/me1.png")
 ENEMY_ONE_IMAGE_FILE = pygame.image.load("images/enemy1.png")
+ENEMY_TWO_IMAGE_FILE = pygame.image.load("images/enemy2.png")
+ENEMY_THREE_IMAGE_FILE = pygame.image.load("images/enemy3_n1.png")
+
 CAPTION = "Fly Figh"
 
